@@ -10,11 +10,15 @@ import javax.servlet.annotation.*;
 
 @WebServlet(name = "SignupServlet", value = "/Signup-servlet")
 public class SignupServlet extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
 
-        BufferedReader credentialReader= Files.newBufferedReader(Paths.get("C:\\Users\\Aakash Nakarmi\\IdeaProjects\\demo1\\Data\\credentials.csv"));
+        BufferedReader credentialReader= Files.newBufferedReader(Paths.get("C:\\Users\\Aakash Nakarmi\\IdeaProjects\\WebAppServlet\\Data\\credentials.csv"));
         String line;
         List<Credential> credentialList=new ArrayList<>();
 
@@ -25,7 +29,7 @@ public class SignupServlet extends HttpServlet {
 
         credentialList.add(new Credential(username,password));
 
-        BufferedWriter credentialWriter=Files.newBufferedWriter(Paths.get("C:\\Users\\Aakash Nakarmi\\IdeaProjects\\demo1\\Data\\credentials.csv"));
+        BufferedWriter credentialWriter=Files.newBufferedWriter(Paths.get("C:\\Users\\Aakash Nakarmi\\IdeaProjects\\WebAppServlet\\Data\\credentials.csv"));
         for(Credential credential:credentialList){
             credentialWriter.write(credential.getUsername()+","+credential.getPassword());
             credentialWriter.newLine();

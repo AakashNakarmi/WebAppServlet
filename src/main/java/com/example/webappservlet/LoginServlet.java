@@ -11,11 +11,15 @@ import javax.servlet.annotation.*;
 
 @WebServlet(name = "LoginServlet", value = "/login-servlet")
 public class LoginServlet extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
 
-        BufferedReader credentialReader= Files.newBufferedReader(Paths.get("C:\\Users\\Aakash Nakarmi\\IdeaProjects\\demo1\\Data\\credentials.csv"));
+        BufferedReader credentialReader= Files.newBufferedReader(Paths.get("C:\\Users\\Aakash Nakarmi\\IdeaProjects\\WebAppServlet\\Data\\credentials.csv"));
         String line;
         List<Credential> credentialList=new ArrayList<>();
 
@@ -31,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 
             if(matchedCredential.get().getPassword().equals(password)){
                 request.getSession(true).setAttribute("username",username);
-                writer.println("<html><body><h1>Welcome to the World!"+username+"</h1></body></html>");
+                writer.println("<html><body><h1>Welcome to the World! "+username+"</h1></body></html>");
             }
 
             else{
